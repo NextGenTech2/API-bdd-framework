@@ -1,0 +1,30 @@
+{
+  "update_user": {
+    "name": "Neeraj",
+    "job": "Senior Engineering Manager"
+  },
+  "create_user": {
+    "name": "Neeraj",
+    "job": "Engineering Manager"
+  },
+  "delete_user": {
+    "id": 123
+  },
+  "valid_auth": {
+    "username": "admin",
+    "password": "password123"
+  },
+  "invalid_auth": {
+    "username": "wrongUser",
+    "password": "wrongPassword"
+  },
+  "dummyjson_valid_login": {
+    "username": "emilys",
+    "password": "emilyspass",
+    "expiresInMins": 30
+  },
+  "dummyjson_invalid_login": {
+    "username": "emilys",
+    "password": "wrongpassword"
+  }
+}
