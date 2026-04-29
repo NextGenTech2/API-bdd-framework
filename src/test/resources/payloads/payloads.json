@@ -26,5 +26,23 @@
   "dummyjson_invalid_login": {
     "username": "emilys",
     "password": "wrongpassword"
+  },
+   "user_registration": {
+    "name": "{{random.name}}",
+    "email": "{{random.email}}",
+    "password": "Tester123"
+  },
+  "user_login": {
+    "email": "{{random.email}}",
+    "password": "Tester123"
+  },
+  "invalid_user_login": {
+    "email": "wrongemail@test.com",
+    "password": "wrongPassword"
+  },
+  "note_template": {
+    "title": "{{}}",
+    "description": "{{}}",
+    "category": "{{}}"
   }
 }

@@ -51,4 +51,12 @@ public static ApiResponse getCurrentResponse() {
     return (ApiResponse) context.get().get("currentResponse");
 }
 
+public static void setData(String key, Object value) {
+    context.get().put(key, value);
+}
+
+public static Object getData(String key) {
+    return context.get().get(key);
+}
+
 }
