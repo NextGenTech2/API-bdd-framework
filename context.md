@@ -36,26 +36,35 @@ API-AUTOMATION/
 
 ### 1. State Management (`ScenarioContext.java`)
 Cucumber creates a new instance of step definition classes for every scenario. To safely share data between `@Given`, `@When`, and `@Then` steps without using static variables (which break parallel execution), we use **`ScenarioContext`**. It internally utilizes `ThreadLocal` to store context data for the current executing thread safely.
-*   *Example*: Saving the endpoint in a `@Given` step and using it in the `@When` step.
+*   *Examples*: Saving an endpoint, an extracted auth token from a login response, or a newly created resource ID (`noteId`) to be used in subsequent steps.
 
 ### 2. Payload Management (`payloads.json`)
 To keep our `.feature` files readable, we strictly **do not** write inline JSON strings. Instead, all request payloads are stored in `src/test/resources/payloads/payloads.json` as key-value pairs.
+Our framework also supports two powerful dynamic data features:
+*   **Dynamic Value Generation**: Placeholders like `{{random.email}}` or `{{random.name}}` in your `payloads.json` file will be automatically replaced with unique generated data for each test run.
+*   **Payload Parameterization**: You can override values in a template payload directly from your feature file using a `DataTable`, which is perfect for data-driven testing.
 
 ### 3. Assertions (`ResponseValidator.java`)
 All assertions regarding status codes and response bodies are centralized in the `ResponseValidator` class to maintain consistency and provide unified error messages across all tests.
 
 ---
 
-## 🚀 How to Automate a New API Scenario
+## 🚀 How to Automate an End-to-End Scenario
 
 When adding new tests, follow these steps to maintain standards:
 
 ### Step 1: Add Test Data to `payloads.json`
-If your API request requires a body (POST/PUT/PATCH), open `payloads.json` and add a new JSON object with a descriptive key.
+If your API request requires a body (POST/PUT/PATCH), open `payloads.json` and add a new JSON object with a descriptive key. You can use placeholders for dynamic data.
 ```json
-"create_user_success": {
-  "name": "Jane Doe",
-  "job": "Software Engineer"
+"user_registration": {
+  "name": "{{random.name}}",
+  "email": "{{random.email}}",
+  "password": "Tester123"
+},
+"note_template": {
+  "title": "{{title}}",
+  "description": "{{description}}",
+  "category": "{{category}}"
 }
 ```
 
