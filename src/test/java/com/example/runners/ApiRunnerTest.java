@@ -12,7 +12,7 @@ import java.util.Arrays;
 @CucumberOptions(
     features = "src/test/resources/features",
     glue = "com.example.steps",
-    tags = "@notes",
+    tags = "@proxy",
     plugin = {
         "pretty",
         "html:target/cucumber-reports/cucumber.html",

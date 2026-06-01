@@ -1,0 +1,69 @@
+{
+  "create_account": {
+    "identifiers": [
+      {
+        "type": "AccountId",
+        "value": "{{random.name}}"
+      },
+      {
+        "type": "AccountName",
+        "value": "Exchange Defence Fund"
+      }
+    ]
+  },
+  "update_account": {
+    "identifiers": [
+      {"type": "AccountId", "value": "{{random.name}}"},
+      {"type": "AccountName", "value": "Exchange Sustainability & ESG Fund Updated"}
+    ],
+    "narratives": [
+      {"type": "UserComment", "value": "Updated account name via PUT call"}
+    ],
+    "classifications": [
+      {"type": "AccountRegion", "value": "International"}
+    ]
+  },
+  "create_group": {
+    "status": "Active",
+    "identifiers": [
+      {
+        "type": "GroupName",
+        "value": "North America Accounts"
+      }
+    ],
+    "classifications": [
+      {
+        "type": "Type",
+        "value": "Group"
+      },
+      {
+        "type": "GroupType",
+        "value": "ACCOUNT_GROUP"
+      }
+    ]
+  },
+  "add_group_details": {
+    "data": [
+      {
+        "status": "Active",
+        "type": "Account",
+        "identifiers": [
+          {
+            "type": "AccountId",
+            "value": "{{random.name}}"
+          },
+          {
+            "type": "AccountName",
+            "value": "Exchange Defence Fund"
+          }
+        ],
+        "classifications": [
+          {
+            "type": "GroupType",
+            "value": "ACCOUNT_GROUP"
+          }
+        ]
+      }
+    ]
+  }
+}

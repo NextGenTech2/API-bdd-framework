@@ -387,6 +387,18 @@ public void theRequestBodyFromTheFile(String filePath, String key) {
         customHeaders.put("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJlbWlseXMiLCJleHAiOjE1MTYyMzkwMjJ9.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c");
     }
 
+    @And("the request headers are:")
+    public void theRequestHeadersAre(Map<String, String> headers) {
+        for (Map.Entry<String, String> entry : headers.entrySet()) {
+            customHeaders.put(entry.getKey(), processPayload(entry.getValue()));
+        }
+    }
+
+    @And("the client sets the header {string} to {string}")
+    public void theClientSetsHeaderTo(String name, String value) {
+        customHeaders.put(name, processPayload(value));
+    }
+
     // --- DYNAMIC DATA HELPERS ---
 
     private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\{\\{([^}]+)\\}\\}");
@@ -420,6 +432,9 @@ public void theRequestBodyFromTheFile(String filePath, String key) {
                     case "random.name":
                         generatedValue = generateRandomName();
                         break;
+                    case "random.client":
+                        generatedValue = generateRandomClient();
+                        break;
                     default:
                         // If instruction is unknown, leave the placeholder as is
                         generatedValue = placeholder;
@@ -432,6 +447,16 @@ public void theRequestBodyFromTheFile(String filePath, String key) {
             matcher.appendReplacement(sb, Matcher.quoteReplacement(generatedValue));
         }
         matcher.appendTail(sb);
+        return sb.toString();
+    }
+
+    private static String generateRandomClient() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        java.util.Random rnd = new java.util.Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < 3; i++) {
+            sb.append(chars.charAt(rnd.nextInt(chars.length())));
+        }
         return sb.toString();
     }
 
