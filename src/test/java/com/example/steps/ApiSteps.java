@@ -11,6 +11,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.json.JSONObject;
 import org.json.JSONArray;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,8 +65,17 @@ public class ApiSteps {
             // Smart type conversion for JSON
             if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
                 jsonObject.put(entry.getKey(), Boolean.parseBoolean(value));
-            } else if (value != null && value.matches("-?\\d+")) {
-                jsonObject.put(entry.getKey(), Integer.parseInt(value));
+            } else if (value != null && value.matches("-?\\d+") && !"phone".equalsIgnoreCase(entry.getKey()) && !"mobile".equalsIgnoreCase(entry.getKey())) {
+                try {
+                    long longValue = Long.parseLong(value);
+                    if (longValue >= Integer.MIN_VALUE && longValue <= Integer.MAX_VALUE) {
+                        jsonObject.put(entry.getKey(), (int) longValue);
+                    } else {
+                        jsonObject.put(entry.getKey(), longValue);
+                    }
+                } catch (NumberFormatException e) {
+                    jsonObject.put(entry.getKey(), value);
+                }
             } else {
                 jsonObject.put(entry.getKey(), value);
             }
@@ -248,8 +258,17 @@ public void theRequestBodyFromTheFile(String filePath, String key) {
                 // Smart type conversion for JSON
                 if ("true".equalsIgnoreCase(value) || "false".equalsIgnoreCase(value)) {
                     basePayload.put(entry.getKey(), Boolean.parseBoolean(value));
-                } else if (value != null && value.matches("-?\\d+")) {
-                    basePayload.put(entry.getKey(), Integer.parseInt(value));
+                } else if (value != null && value.matches("-?\\d+") && !"phone".equalsIgnoreCase(entry.getKey()) && !"mobile".equalsIgnoreCase(entry.getKey())) {
+                    try {
+                        long longValue = Long.parseLong(value);
+                        if (longValue >= Integer.MIN_VALUE && longValue <= Integer.MAX_VALUE) {
+                            basePayload.put(entry.getKey(), (int) longValue);
+                        } else {
+                            basePayload.put(entry.getKey(), longValue);
+                        }
+                    } catch (NumberFormatException e) {
+                        basePayload.put(entry.getKey(), value);
+                    }
                 } else {
                     basePayload.put(entry.getKey(), value);
                 }
@@ -328,6 +347,12 @@ public void theRequestBodyFromTheFile(String filePath, String key) {
         String responseBody = ScenarioContext.getCurrentResponse().getBody();
         Assert.assertTrue("Expected response to contain text: '" + expectedText + "', but actual response body was: " + responseBody,
                 responseBody.contains(expectedText));
+    }
+
+    @And("the response body should match the JSON schema {string}")
+    public void theResponseBodyShouldMatchTheJsonSchema(String schemaFileName) {
+        org.hamcrest.MatcherAssert.assertThat(ScenarioContext.getCurrentResponse().getBody(), 
+                io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/" + schemaFileName));
     }
     
     @And("the response array should contain the following items:")

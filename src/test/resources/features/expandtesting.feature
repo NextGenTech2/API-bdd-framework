@@ -7,7 +7,7 @@ Feature: API testing with POST GET DELETE PUT PATCH
     And the response body should match the following details:
         | success | status | message                   |
         | true    | 200    | Notes API is Running     |
-
+    And the response body should match the JSON schema "health_check_schema.json"
 
   Scenario: User Registration, Login , Fetch Profile, update profile, vefify updated profile, logout
     # 1. Registration
@@ -18,6 +18,7 @@ Feature: API testing with POST GET DELETE PUT PATCH
     And the response body should match the following details:
       | success | status | message                           | data.name | data.email    |
       | true    | 201    | User account created successfully | {{random.name}}     | {{random.email}} |
+    And the response body should match the JSON schema "user_registration_schema.json"
 
     # 2. Login
     Given the API endpoint is "/notes/api/users/login"
@@ -27,6 +28,7 @@ Feature: API testing with POST GET DELETE PUT PATCH
     And the response body should match the following details:
       | success | status | message          | data.email       |
       | true    | 200    | Login successful | {{random.email}} |
+    And the response body should match the JSON schema "user_login_schema.json"
     And the client extracts the "data.token" from the response as a Bearer token
 
     # 3. Get Profile
@@ -37,6 +39,7 @@ Feature: API testing with POST GET DELETE PUT PATCH
     And the response body should match the following details:
       | success | status | message            | data.name       | data.email       |
       | true    | 200    | Profile successful | {{random.name}} | {{random.email}} |
+    And the response body should match the JSON schema "user_profile_schema.json"
 
     # 4. Update Profile via PATCH
     Given the API endpoint is "/notes/api/users/profile"
@@ -49,6 +52,7 @@ Feature: API testing with POST GET DELETE PUT PATCH
     And the response body should match the following details:
       | success | status | message                      | data.name | data.phone | data.company |
       | true    | 200    | Profile updated successful   | Niraj     | 4343843438 | test         |
+    And the response body should match the JSON schema "user_profile_schema.json"
 
     # 5. Verify Update via GET
     Given the API endpoint is "/notes/api/users/profile"
@@ -58,6 +62,7 @@ Feature: API testing with POST GET DELETE PUT PATCH
     And the response body should match the following details:
       | success | status | message            | data.name | data.phone | data.company |
       | true    | 200    | Profile successful | Niraj     | 4343843438 | test         |
+    And the response body should match the JSON schema "user_profile_schema.json"
 
     # 6. Logout User
     Given the API endpoint is "/notes/api/users/logout"
@@ -67,6 +72,7 @@ Feature: API testing with POST GET DELETE PUT PATCH
     And the response body should match the following details:
       | success | status | message                                |
       | true    | 200    | User has been successfully logged out |
+    And the response body should match the JSON schema "basic_response_schema.json"
 
 @Negative
 Scenario: Send invalid token in header
@@ -77,6 +83,7 @@ Scenario: Send invalid token in header
   And the response body should match the following details:
   | success | status | message                                                           | 
   | false    | 401    | Access token is not valid or has expired, you will need to login |
+  And the response body should match the JSON schema "basic_response_schema.json"
 
   Given the API endpoint is "/notes/api/users/login"
     And the request body is from the file "payloads/payloads.json" with the key "invalid_user_login"
@@ -85,4 +92,5 @@ Scenario: Send invalid token in header
     And the response body should match the following details:
       | success | status | message                              |
       | false    | 401    | Incorrect email address or password |
+    And the response body should match the JSON schema "basic_response_schema.json"
     

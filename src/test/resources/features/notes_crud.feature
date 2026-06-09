@@ -1,7 +1,8 @@
 @notes @e2e
 Feature: Notes API CRUD Operations
 
-  Scenario: End-to-end flow to Create, Read, Update, Patch, and Delete a Note
+  #Scenario: End-to-end flow to Create, Read, Update, Patch, and Delete a Note
+  
    Scenario: User Registration, Login , Fetch Profile, update profile, vefify updated profile, logout
     # 1. Registration
     Given the API endpoint is "/notes/api/users/register"

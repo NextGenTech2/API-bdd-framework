@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "success": { "type": "boolean" },
+    "status": { "type": "integer" },
+    "message": { "type": "string" },
+    "data": {
+      "type": "object",
+      "properties": {
+        "token": { "type": "string" },
+        "email": { "type": "string" },
+        "id": { "type": "string" }
+      },
+      "required": ["token", "email"]
+    }
+  },
+  "required": ["success", "status", "message", "data"]
+}

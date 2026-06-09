@@ -9,7 +9,7 @@ This framework is designed to abstract away complex Java code, allowing SDETs an
 *   **Language**: Java (11+)
 *   **BDD Framework**: Cucumber
 *   **HTTP Client**: RestAssured
-*   **Test Runner**: JUnit 4
+*   **Test Runner**: TestNG (for Parallel Execution)
 *   **JSON Processing**: `org.json` & `JsonPath`
 *   **Reporting**: Masterthought Cucumber Reports
 
@@ -21,6 +21,8 @@ This framework is designed to abstract away complex Java code, allowing SDETs an
 4. **Payload Parameterization**: Override template JSON fields directly from your Gherkin `DataTable` for elegant data-driven testing.
 5. **State Management**: Safely extract IDs and Tokens from responses and pass them to subsequent API calls using a Thread-safe `ScenarioContext`.
 6. **Detailed Request Logging**: Automatically prints beautifully formatted Request (Method, URL, Headers, Body) and Response details to the console for easy debugging.
+7. **JSON Schema Validation**: Ensure API contracts are never broken by easily asserting responses against JSON schemas stored in the classpath.
+8. **Parallel Execution**: Leverage TestNG and Maven Surefire to run Cucumber scenarios concurrently, significantly reducing test suite execution time.
 
 ---
 
@@ -34,11 +36,12 @@ API-AUTOMATION/
 │   ├── services/     # ApiService.java (Prepares request specs and logs requests)
 │   └── utils/        # Core utilities: ApiConfig, AuthManager, ResponseValidator, ScenarioContext
 ├── src/test/java/com/example/
-│   ├── runners/      # ApiRunnerTest.java (JUnit runner configuration & tags)
+│   ├── runners/      # ApiRunnerTest.java (TestNG runner configuration & tags)
 │   └── steps/        # Hooks.java & ApiSteps.java (Cucumber Step Definitions)
 ├── src/test/resources/
 │   ├── features/     # Cucumber .feature files (Gherkin scenarios)
-│   └── payloads/     # payloads.json (Centralized test data / JSON bodies)
+│   ├── payloads/     # payloads.json (Centralized test data / JSON bodies)
+│   └── schemas/      # JSON Schema files for contract validation
 ```
 
 ---

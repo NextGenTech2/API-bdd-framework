@@ -6,7 +6,7 @@ Welcome to the API Automation team! This document serves as a guide to understan
 *   **Language**: Java
 *   **BDD Framework**: Cucumber
 *   **HTTP Client**: RestAssured
-*   **Test Runner**: JUnit 4
+*   **Test Runner**: TestNG (with Surefire Parallel Execution)
 *   **JSON Processing**: `org.json` & `JsonPath`
 
 ---
@@ -23,11 +23,12 @@ API-AUTOMATION/
 │   ├── services/     # ApiService.java (Prepares request specs, URLs, and executes via RestClient)
 │   └── utils/        # Core utilities: ApiConfig, AuthManager, ResponseValidator, ScenarioContext
 ├── src/test/java/com/example/
-│   ├── runners/      # ApiRunnerTest.java (JUnit runner configuration & tags)
+│   ├── runners/      # ApiRunnerTest.java (TestNG runner configuration & data provider)
 │   └── steps/        # Hooks.java & ApiSteps.java (Cucumber Step Definitions)
 ├── src/test/resources/
 │   ├── features/     # Cucumber .feature files (Gherkin scenarios)
-│   └── payloads/     # payloads.json (Centralized test data / JSON bodies)
+│   ├── payloads/     # payloads.json (Centralized test data / JSON bodies)
+│   └── schemas/      # JSON Schema files for endpoint validation
 ```
 
 ---
@@ -46,6 +47,12 @@ Our framework also supports two powerful dynamic data features:
 
 ### 3. Assertions (`ResponseValidator.java`)
 All assertions regarding status codes and response bodies are centralized in the `ResponseValidator` class to maintain consistency and provide unified error messages across all tests.
+
+### 4. Schema Validation
+API Contracts are verified via `JsonSchemaValidator`. You can add `And the response body should match the JSON schema "my_schema.json"` to your features to strictly check data types and required fields against schema files stored in `src/test/resources/schemas/`.
+
+### 5. Parallel Execution
+The framework leverages TestNG and Maven Surefire to run tests in parallel. Scenarios run concurrently to increase execution speed. Do not use static variables in steps or helpers to ensure thread-safety.
 
 ---
 
@@ -112,6 +119,8 @@ Here is a cheat sheet of the available steps mapped in `ApiSteps.java`:
     *(Accepts a DataTable. Smartly matches keys for JSON Objects `[0]` vs Lists)*
 *   `And the response array should contain the following items:`
     *(Accepts a DataTable list of elements to search for in a JSON Array)*
+*   `And the response body should match the JSON schema "{schemaFileName}"`
+    *(Validates response body against a JSON schema file located in `src/test/resources/schemas/`)*
 
 ### Authentication & Chaining Steps
 *   `And the client extracts the "{jsonKey}" from the response as a Bearer token`
