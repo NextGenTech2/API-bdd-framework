@@ -53,6 +53,8 @@ API Contracts are verified via `JsonSchemaValidator`. You can add `And the respo
 
 ### 5. Parallel Execution
 The framework leverages TestNG and Maven Surefire to run tests in parallel. Scenarios run concurrently to increase execution speed. Do not use static variables in steps or helpers to ensure thread-safety.
+*   **To disable parallelism temporarily (e.g., for debugging):** Run tests with `mvn clean test -Ddataproviderthreadcount=1`.
+*   **To disable parallelism permanently:** Set `@DataProvider(parallel = false)` in `ApiRunnerTest.java`.
 
 ---
 

@@ -83,6 +83,12 @@ mvn clean test
 mvn clean test -Dcucumber.filter.tags="@e2e"
 ```
 
+**Disable Parallel Execution (for debugging):**
+The framework runs tests concurrently by default. To temporarily force sequential execution (1 thread) for easier debugging, override the thread count property:
+```bash
+mvn clean test -Ddataproviderthreadcount=1
+```
+
 ---
 
 ## 📊 Test Reporting
