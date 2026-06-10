@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "changeType": { "type": "string" },
+              "changeFrom": { "type": "string" },
+              "changeTo": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "pageNumber": { "type": "integer" },
+        "pageSize": { "type": "integer" }
+      },
+      "required": ["pageNumber", "pageSize"]
+    }
+  },
+  "required": ["data", "metadata"]
+}
