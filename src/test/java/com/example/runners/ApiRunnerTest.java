@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 @CucumberOptions(
-    features = "src/test/resources/features/expandtesting.feature",
+    features = "src/test/resources/features/account.feature",
     glue = "com.example.steps",
-    tags = "@proxy",
+    tags = "@account",
     plugin = {
         "pretty",
         "html:target/cucumber-reports/cucumber.html",
@@ -26,9 +26,5 @@ public class ApiRunnerTest extends AbstractTestNGCucumberTests {
         return super.scenarios();
     }
 
-    @AfterClass(alwaysRun = true)
-    public void generateAdvancedReport() {
-        ArrayList<String> jsonFiles = new ArrayList<>(Arrays.asList("target/cucumber-reports/report.json"));
-        CucumberReportGenerator.generateReport("API Automation Framework", "target/cucumber-reports/advanced", jsonFiles);
-    }
+
 }

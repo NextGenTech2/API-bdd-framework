@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "pageNumber": { "type": "integer" },
+        "pageSize": { "type": "integer" }
+      },
+      "required": ["pageNumber", "pageSize"]
+    },
+    "data": {
+      "type": "array"
+    }
+  },
+  "required": ["metadata", "data"]
+}

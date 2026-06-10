@@ -5,6 +5,7 @@ Feature: Account API Functionality
     Given the API endpoint is "/health"
     When the client sends a GET request
     Then the response status code should be 200
+    And the response body should match the JSON schema "account_health_check_schema.json"
     And the response body should match the following details:
       | status | message                    |
       | Active | Service is up and running  |
@@ -17,6 +18,7 @@ Feature: Account API Functionality
     Given the API endpoint is "/auth/token"
     When the client sends a GET request
     Then the response status code should be 200
+    And the response body should match the JSON schema "auth_token_schema.json"
     And the response body should match the following details:
       | token_type |
       | Bearer     |
@@ -28,6 +30,7 @@ Feature: Account API Functionality
     And the request body is from the file "payloads/proxy_payloads.json" with the key "create_account"
     When the client sends a POST request
     Then the response status code should be 200
+    And the response body should match the JSON schema "account_action_status_schema.json"
     And the response body should match the following details:
       | status    |
       | Completed |
@@ -36,6 +39,7 @@ Feature: Account API Functionality
     Given the API endpoint is "/accounts"
     When the client sends a GET request
     Then the response status code should be 200
+    And the response body should match the JSON schema "accounts_list_schema.json"
     And the client extracts the "data[0].identifiers[0].value" from the response as a Bearer token
 
     # 4. Get Account Details using header Account-Id (Authorization header is automatically maintained)
@@ -43,6 +47,7 @@ Feature: Account API Functionality
     And the client sets the extracted token in the "Account-Id" header
     When the client sends a GET request
     Then the response status code should be 200
+    And the response body should match the JSON schema "account_details_schema.json"
     And the response body should match the following details:
       | data[0].status |
       | Active         |
@@ -54,6 +59,7 @@ Feature: Account API Functionality
       | limit      | 5 |
     When the client sends a GET request
     Then the response status code should be 200
+    And the response body should match the JSON schema "accounts_paginated_list_schema.json"
     And the response body should match the following details:
       | metadata.pageNumber | metadata.pageSize |
       | 2                   | 5                 |
@@ -64,6 +70,7 @@ Feature: Account API Functionality
     And the request body is from the file "payloads/proxy_payloads.json" with the key "update_account"
     When the client sends a PUT request
     Then the response status code should be 200
+    And the response body should match the JSON schema "account_action_status_schema.json"
     And the response body should match the following details:
       | status    |
       | Completed |
@@ -76,6 +83,7 @@ Feature: Account API Functionality
       | limit       | 5 |
     When the client sends a GET request
     Then the response status code should be 200
+    And the response body should match the JSON schema "account_history_schema.json"
     And the response body should match the following details:
       | data.changes[0].changeType | data.changes[0].changeFrom | data.changes[0].changeTo                             | metadata.pageNumber | metadata.pageSize |
       | Account Name               | ESG                        | Exchange ESG Focus Fund                            | 1                   | 5                 |
@@ -85,6 +93,7 @@ Feature: Account API Functionality
     And the client sets the extracted token in the "Account-Id" header
     When the client sends a DELETE request
     Then the response status code should be 200
+    And the response body should match the JSON schema "account_action_status_schema.json"
     And the response body should match the following details:
       | status    |
       | Completed |
