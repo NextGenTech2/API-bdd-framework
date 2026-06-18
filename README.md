@@ -151,8 +151,6 @@ Feature: Notes API Operations
 * **Dynamic Type Conversion**: The framework automatically parses strings like `"true"` and `"false"` in DataTables into JSON Booleans, and numeric strings into JSON Integers.
 
 ---
-Automation Framework
-This is my new coommit on Main 
 
 ## 🤝 Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
