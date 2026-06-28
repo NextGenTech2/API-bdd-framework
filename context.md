@@ -17,18 +17,21 @@ Our framework is cleanly separated into main framework code and test execution c
 
 ```text
 API-AUTOMATION/
-├── src/main/java/com/example/api/
-│   ├── client/       # RestClient.java (Wrapper around RestAssured methods: GET, POST, etc.)
-│   ├── models/       # POJOs for Requests and Responses (ApiResponse, RequestBuilder)
-│   ├── services/     # ApiService.java (Prepares request specs, URLs, and executes via RestClient)
-│   └── utils/        # Core utilities: ApiConfig, AuthManager, ResponseValidator, ScenarioContext
+├── src/main/java/com/example/
+│   ├── api/
+│   │   ├── client/       # RestClient.java (Wrapper around RestAssured methods: GET, POST, etc.)
+│   │   ├── models/       # POJOs for Requests and Responses (ApiResponse, RequestBuilder)
+│   │   ├── services/     # ApiService.java (Prepares request specs, URLs, and executes via RestClient)
+│   │   └── utils/        # Core utilities: ApiConfig, AuthManager, ResponseValidator, ScenarioContext
+│   ├── steps/            # Hooks.java & ApiSteps.java (Cucumber Step Definitions)
+│   └── CucumberReportGenerator.java  # Cucumber report generator utility
+├── src/main/resources/
+│   ├── payloads/         # payloads.json (Centralized test data / JSON bodies)
+│   └── schemas/          # JSON Schema files for endpoint validation
 ├── src/test/java/com/example/
-│   ├── runners/      # ApiRunnerTest.java (TestNG runner configuration & data provider)
-│   └── steps/        # Hooks.java & ApiSteps.java (Cucumber Step Definitions)
-├── src/test/resources/
-│   ├── features/     # Cucumber .feature files (Gherkin scenarios)
-│   ├── payloads/     # payloads.json (Centralized test data / JSON bodies)
-│   └── schemas/      # JSON Schema files for endpoint validation
+│   └── runners/          # ApiRunnerTest.java (TestNG runner used to test the framework)
+└── src/test/resources/
+    └── features/         # Cucumber .feature files used for testing the framework
 ```
 
 ---
@@ -40,7 +43,7 @@ Cucumber creates a new instance of step definition classes for every scenario. T
 *   *Examples*: Saving an endpoint, an extracted auth token from a login response, or a newly created resource ID (`noteId`) to be used in subsequent steps.
 
 ### 2. Payload Management (`payloads.json`)
-To keep our `.feature` files readable, we strictly **do not** write inline JSON strings. Instead, all request payloads are stored in `src/test/resources/payloads/payloads.json` as key-value pairs.
+To keep our `.feature` files readable, we strictly **do not** write inline JSON strings. Instead, all request payloads are stored in `src/main/resources/payloads/payloads.json` as key-value pairs.
 Our framework also supports two powerful dynamic data features:
 *   **Dynamic Value Generation**: Placeholders like `{{random.email}}` or `{{random.name}}` in your `payloads.json` file will be automatically replaced with unique generated data for each test run.
 *   **Payload Parameterization**: You can override values in a template payload directly from your feature file using a `DataTable`, which is perfect for data-driven testing.
@@ -49,7 +52,7 @@ Our framework also supports two powerful dynamic data features:
 All assertions regarding status codes and response bodies are centralized in the `ResponseValidator` class to maintain consistency and provide unified error messages across all tests.
 
 ### 4. Schema Validation
-API Contracts are verified via `JsonSchemaValidator`. You can add `And the response body should match the JSON schema "my_schema.json"` to your features to strictly check data types and required fields against schema files stored in `src/test/resources/schemas/`.
+API Contracts are verified via `JsonSchemaValidator`. You can add `And the response body should match the JSON schema "my_schema.json"` to your features to strictly check data types and required fields against schema files stored in `src/main/resources/schemas/`.
 
 ### 5. Parallel Execution
 The framework leverages TestNG and Maven Surefire to run tests in parallel. Scenarios run concurrently to increase execution speed. Do not use static variables in steps or helpers to ensure thread-safety.
@@ -122,7 +125,7 @@ Here is a cheat sheet of the available steps mapped in `ApiSteps.java`:
 *   `And the response array should contain the following items:`
     *(Accepts a DataTable list of elements to search for in a JSON Array)*
 *   `And the response body should match the JSON schema "{schemaFileName}"`
-    *(Validates response body against a JSON schema file located in `src/test/resources/schemas/`)*
+    *(Validates response body against a JSON schema file located in `src/main/resources/schemas/`)*
 
 ### Authentication & Chaining Steps
 *   `And the client extracts the "{jsonKey}" from the response as a Bearer token`
