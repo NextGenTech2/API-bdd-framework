@@ -4,7 +4,6 @@ import com.example.api.client.RestClient;
 import com.example.api.models.ApiResponse; 
 import com.example.api.models.RequestBuilder; 
 import com.example.api.utils.ApiConfig; 
-import com.example.api.utils.AuthManager; 
 import io.restassured.response.Response; 
 import io.restassured.specification.RequestSpecification;
 

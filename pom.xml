@@ -54,7 +54,6 @@
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>4.13.2</version>
-        <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>net.masterthought</groupId>
@@ -112,4 +111,13 @@
 </plugin>
     </plugins>
 </build>
+
+<distributionManagement>
+    <repository>
+        <id>github</id>
+        <name>GitHub NextGenTech2 Apache Maven Packages</name>
+        <url>https://maven.pkg.github.com/NextGenTech2/API-bdd-framework</url>
+    </repository>
+</distributionManagement>
+
 </project>

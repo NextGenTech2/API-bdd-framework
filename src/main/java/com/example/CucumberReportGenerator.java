@@ -5,7 +5,6 @@ import net.masterthought.cucumber.ReportBuilder;
 import net.masterthought.cucumber.Reportable;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
 
 public class CucumberReportGenerator {
     public static void generateReport(String projectName, String targetDir, ArrayList<String> jsonFiles) {

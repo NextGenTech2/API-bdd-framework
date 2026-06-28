@@ -1,7 +1,6 @@
 package com.example.api.utils;
 
 import io.restassured.RestAssured;
-import io.restassured.http.Header;
 
 import java.util.HashMap;
 import java.util.Map;

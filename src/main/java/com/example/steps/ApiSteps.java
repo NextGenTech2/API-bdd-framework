@@ -11,15 +11,9 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.json.JSONObject;
 import org.json.JSONArray;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
-
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.UUID;
 import java.util.List;
 import java.util.Map;

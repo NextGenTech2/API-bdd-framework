@@ -2,8 +2,6 @@ package com.example.api.utils;
 
 import com.example.api.models.ApiResponse;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Assert;
 
 public class ResponseValidator { 
