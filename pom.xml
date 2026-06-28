@@ -15,6 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <cucumber.version>7.3.4</cucumber.version>
     <rest-assured.version>5.1.1</rest-assured.version>
+    <skipTests>false</skipTests>
 </properties>
 
 <dependencies>
@@ -81,7 +82,8 @@
             <param>report.json</param>
         </jsonFiles>
         <skippedFails>true</skippedFails>
-    <expandAllSteps>true</expandAllSteps>
+        <expandAllSteps>true</expandAllSteps>
+        <skip>${skipTests}</skip>
     </configuration>
     <executions>
         <execution>
