@@ -7,7 +7,7 @@ import io.cucumber.java.Scenario;
 public class Hooks {
     @After
     public void tearDown(Scenario scenario) {
-        if (scenario.isFailed()) {
+        if (scenario.isFailed() && ScenarioContext.getCurrentResponse() != null) {
             String responseBody = ScenarioContext.getCurrentResponse().getBody();
             // This attaches the response body directly into the Masterthought HTML report
             scenario.log("API Response Body on Failure: " + responseBody);
