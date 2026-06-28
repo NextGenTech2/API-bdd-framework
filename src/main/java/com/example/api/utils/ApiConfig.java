@@ -17,7 +17,9 @@ public class ApiConfig {
      //private static final String BASE_URL = "https://reqres.in/api";
      //private static final String BASE_URL = "https://restful-booker.herokuapp.com";
      //private static final String API_KEY = "pro_1719467d04af4bfbe009845d4a9e91885a53dbed7dc5cb8fdc5350f32aedd85c"; 
-      private static final String BASE_URL = "http://localhost:9091/regulatory/proxy-voting/v1/proxy";
+     //private static final String BASE_URL = "http://localhost:9091/regulatory/proxy-voting/v1/proxy";
+     private static final String BASE_URL = "https://practice.expandtesting.com";
+     //private static final String BASE_URL = "https://rest-api-dev-production.up.railway.app/regulatory/proxy-voting/v1/proxy";
 
     private static final Map<String, String> HEADERS = new HashMap<>();
 
