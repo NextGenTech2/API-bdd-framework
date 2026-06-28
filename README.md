@@ -30,18 +30,21 @@ This framework is designed to abstract away complex Java code, allowing SDETs an
 
 ```text
 API-AUTOMATION/
-├── src/main/java/com/example/api/
-│   ├── client/       # RestClient.java (Wrapper around RestAssured methods)
-│   ├── models/       # POJOs and RequestBuilder
-│   ├── services/     # ApiService.java (Prepares request specs and logs requests)
-│   └── utils/        # Core utilities: ApiConfig, AuthManager, ResponseValidator, ScenarioContext
+├── src/main/java/com/example/
+│   ├── api/
+│   │   ├── client/       # RestClient.java (Wrapper around RestAssured methods)
+│   │   ├── models/       # POJOs and RequestBuilder
+│   │   ├── services/     # ApiService.java (Prepares request specs and logs requests)
+│   │   └── utils/        # Core utilities: ApiConfig, AuthManager, ResponseValidator, ScenarioContext
+│   ├── steps/            # Hooks.java & ApiSteps.java (Cucumber Step Definitions)
+│   └── CucumberReportGenerator.java  # Cucumber report generator utility
+├── src/main/resources/
+│   ├── payloads/         # Centralized test data / JSON bodies
+│   └── schemas/          # JSON Schema files for contract validation
 ├── src/test/java/com/example/
-│   ├── runners/      # ApiRunnerTest.java (TestNG runner configuration & tags)
-│   └── steps/        # Hooks.java & ApiSteps.java (Cucumber Step Definitions)
-├── src/test/resources/
-│   ├── features/     # Cucumber .feature files (Gherkin scenarios)
-│   ├── payloads/     # payloads.json (Centralized test data / JSON bodies)
-│   └── schemas/      # JSON Schema files for contract validation
+│   └── runners/          # ApiRunnerTest.java (TestNG runner used to test the framework)
+└── src/test/resources/
+    └── features/         # Cucumber .feature files used for testing the framework
 ```
 
 ---
@@ -149,6 +152,71 @@ Feature: Notes API Operations
 * **No Hardcoded URLs**: Base URLs belong in `ApiConfig.java`. Use relative paths in Feature files.
 * **Use `ScenarioContext`**: Do not use static variables in Step Definitions. Use `ScenarioContext.setData(key, value)` and `ScenarioContext.getData(key)` to safely share state between steps.
 * **Dynamic Type Conversion**: The framework automatically parses strings like `"true"` and `"false"` in DataTables into JSON Booleans, and numeric strings into JSON Integers.
+
+---
+
+## 📦 Using as a Reusable Library
+
+This framework is packaged as a reusable testing library. Other projects can import this library to write their own BDD API tests without rewriting step definitions or utility classes.
+
+### 1. Add Dependency
+Add this dependency to your project's `pom.xml`:
+```xml
+<dependency>
+    <groupId>com.example</groupId>
+    <artifactId>api-test-framework</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+```
+
+### 2. Create Your Feature Files & Runners
+In your client project:
+* Place your `.feature` files under `src/test/resources/features/`.
+* Create a TestNG Runner in `src/test/java/` pointing to the library's step definitions:
+```java
+package com.example.runners;
+
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+
+@CucumberOptions(
+    features = "src/test/resources/features",
+    glue = "com.example.steps", // Uses the step definitions from the library!
+    plugin = {
+        "pretty",
+        "html:target/cucumber-reports/cucumber.html",
+        "json:target/cucumber-reports/report.json"
+    }
+)
+public class RunTests extends AbstractTestNGCucumberTests {
+}
+```
+
+---
+
+## 🚀 Publishing to GitHub Packages
+
+To publish this library to GitHub Packages so other team members can import it:
+
+### 1. Configure local `settings.xml`
+Add your GitHub credentials to your local `settings.xml` (located at `~/.m2/settings.xml`):
+```xml
+<settings>
+  <servers>
+    <server>
+      <id>github</id>
+      <username>YOUR_GITHUB_USERNAME</username>
+      <password>YOUR_GITHUB_PERSONAL_ACCESS_TOKEN</password> <!-- Requires write:packages scope -->
+    </server>
+  </servers>
+</settings>
+```
+
+### 2. Publish the JAR
+Run the following Maven command to build and deploy the library:
+```bash
+mvn clean deploy -DskipTests
+```
 
 ---
 
