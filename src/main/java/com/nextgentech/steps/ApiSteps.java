@@ -1,9 +1,9 @@
-package com.example.steps;
+package com.nextgentech.steps;
 
-import com.example.api.models.ApiResponse;
-import com.example.api.services.ApiService;
-import com.example.api.utils.ResponseValidator;
-import com.example.api.utils.ScenarioContext;
+import com.nextgentech.api.models.ApiResponse;
+import com.nextgentech.api.services.ApiService;
+import com.nextgentech.api.utils.ResponseValidator;
+import com.nextgentech.api.utils.ScenarioContext;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

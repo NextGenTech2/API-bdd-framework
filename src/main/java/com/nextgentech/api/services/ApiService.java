@@ -1,9 +1,9 @@
-package com.example.api.services;
+package com.nextgentech.api.services;
 
-import com.example.api.client.RestClient; 
-import com.example.api.models.ApiResponse; 
-import com.example.api.models.RequestBuilder; 
-import com.example.api.utils.ApiConfig; 
+import com.nextgentech.api.client.RestClient; 
+import com.nextgentech.api.models.ApiResponse; 
+import com.nextgentech.api.models.RequestBuilder; 
+import com.nextgentech.api.utils.ApiConfig; 
 import io.restassured.response.Response; 
 import io.restassured.specification.RequestSpecification;
 

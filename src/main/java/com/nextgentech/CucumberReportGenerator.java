@@ -1,4 +1,4 @@
-package com.example;
+package com.nextgentech;
 
 import net.masterthought.cucumber.Configuration;
 import net.masterthought.cucumber.ReportBuilder;

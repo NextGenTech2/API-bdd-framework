@@ -1,6 +1,6 @@
-package com.example.api.utils;
+package com.nextgentech.api.utils;
 
-import com.example.api.models.ApiResponse;
+import com.nextgentech.api.models.ApiResponse;
 
 import org.junit.Assert;
 

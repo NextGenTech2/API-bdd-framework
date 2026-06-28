@@ -1,6 +1,6 @@
-package com.example.steps;
+package com.nextgentech.steps;
 
-import com.example.api.utils.ScenarioContext;
+import com.nextgentech.api.utils.ScenarioContext;
 import io.cucumber.java.After;
 import io.cucumber.java.Scenario;
 

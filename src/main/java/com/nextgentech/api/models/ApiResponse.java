@@ -1,4 +1,4 @@
-package com.example.api.models;
+package com.nextgentech.api.models;
 
 import io.restassured.response.Response;
 

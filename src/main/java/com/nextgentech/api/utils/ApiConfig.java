@@ -1,4 +1,4 @@
-package com.example.api.utils;
+package com.nextgentech.api.utils;
 
 import io.restassured.RestAssured;
 

@@ -1,13 +1,13 @@
-package com.example.runners;
+package com.nextgentech.runners;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
-    features = "src/test/resources/features/account.feature",
-    glue = "com.example.steps",
-    tags = "@account",
+    features = "src/test/resources/features/notes_crud.feature",
+    glue = "com.nextgentech.steps",
+    //tags = "@account",
     plugin = {
         "pretty",
         "html:target/cucumber-reports/cucumber.html",

@@ -1,4 +1,4 @@
-package com.example.api.utils;
+package com.nextgentech.api.utils;
 
 public class AuthManager { 
 public static void login(String username, String password) {

@@ -30,7 +30,7 @@ This framework is designed to abstract away complex Java code, allowing SDETs an
 
 ```text
 API-AUTOMATION/
-├── src/main/java/com/example/
+├── src/main/java/com/nextgentech/
 │   ├── api/
 │   │   ├── client/       # RestClient.java (Wrapper around RestAssured methods)
 │   │   ├── models/       # POJOs and RequestBuilder
@@ -38,13 +38,12 @@ API-AUTOMATION/
 │   │   └── utils/        # Core utilities: ApiConfig, AuthManager, ResponseValidator, ScenarioContext
 │   ├── steps/            # Hooks.java & ApiSteps.java (Cucumber Step Definitions)
 │   └── CucumberReportGenerator.java  # Cucumber report generator utility
-├── src/main/resources/
-│   ├── payloads/         # Centralized test data / JSON bodies
-│   └── schemas/          # JSON Schema files for contract validation
-├── src/test/java/com/example/
+├── src/test/java/com/nextgentech/
 │   └── runners/          # ApiRunnerTest.java (TestNG runner used to test the framework)
 └── src/test/resources/
-    └── features/         # Cucumber .feature files used for testing the framework
+    ├── features/         # Cucumber .feature files used for testing the framework
+    ├── payloads/         # Centralized test data / JSON bodies
+    └── schemas/          # JSON Schema files for contract validation
 ```
 
 ---
@@ -163,7 +162,7 @@ This framework is packaged as a reusable testing library. Other projects can imp
 Add this dependency to your project's `pom.xml`:
 ```xml
 <dependency>
-    <groupId>com.example</groupId>
+    <groupId>com.nextgentech</groupId>
     <artifactId>api-test-framework</artifactId>
     <version>1.0-SNAPSHOT</version>
 </dependency>
@@ -174,14 +173,14 @@ In your client project:
 * Place your `.feature` files under `src/test/resources/features/`.
 * Create a TestNG Runner in `src/test/java/` pointing to the library's step definitions:
 ```java
-package com.example.runners;
+package com.nextgentech.runners;
 
 import io.cucumber.testng.AbstractTestNGCucumberTests;
 import io.cucumber.testng.CucumberOptions;
 
 @CucumberOptions(
     features = "src/test/resources/features",
-    glue = "com.example.steps", // Uses the step definitions from the library!
+    glue = "com.nextgentech.steps", // Uses the step definitions from the library!
     plugin = {
         "pretty",
         "html:target/cucumber-reports/cucumber.html",
