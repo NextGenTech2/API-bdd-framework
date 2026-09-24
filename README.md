@@ -80,6 +80,13 @@ You can execute the tests using Maven from the command line.
 mvn clean test
 ```
 
+**Run a specific feature file with a custom Base URL:**
+```bash
+mvn clean test "-Dcucumber.features=src/test/resources/features/jsonPlaceHolderList.feature" "-Dbase.url=https://jsonplaceholder.typicode.com"
+```
+
+> **Tip (PowerShell / Windows):** Always wrap `-D` arguments in quotes (`"-Dbase.url=..."` and `"-Dcucumber.features=..."`) to prevent PowerShell from misinterpreting properties.
+
 **Run a specific suite using Cucumber tags (e.g., `@e2e`):**
 ```bash
 mvn clean test -Dcucumber.filter.tags="@e2e"

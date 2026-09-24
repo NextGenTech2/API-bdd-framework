@@ -95,7 +95,12 @@ Scenario: Successfully create a new user
 ```
 
 ### Step 3: Run and Verify
-Run the scenario using your IDE or via Maven/Gradle using the tag (e.g., `@users`). If it passes, a detailed HTML report will be generated in `target/cucumber-reports/`.
+Run the scenario using your IDE or via Maven using the tag, or specify the feature file and base URL directly:
+```bash
+# Run a specific feature file with an overridden Base URL
+mvn clean test "-Dcucumber.features=src/test/resources/features/jsonPlaceHolderList.feature" "-Dbase.url=https://jsonplaceholder.typicode.com"
+```
+If it passes, a detailed HTML report will be generated in `target/cucumber-reports/`.
 
 ---
 
