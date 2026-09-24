@@ -1,3 +1,10 @@
 {
-    "java.configuration.updateBuildConfiguration": "automatic"
+    "java.configuration.updateBuildConfiguration": "automatic",
+    "cucumber.glue": [
+        "src/main/java/**/*.java",
+        "src/test/java/**/*.java"
+    ],
+    "cucumber.features": [
+        "src/test/resources/features/**/*.feature"
+    ]
 }
